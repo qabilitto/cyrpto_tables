@@ -23,7 +23,6 @@ header=['model','color','year','engine','mileage','price']
 data.append(['model','color','year','engine','mileage','price'])
 
 def addcar():
-   
     car_details_asnwer=inquirer.prompt(car_details_question)
     car_details_asnwer['year']=int(car_details_asnwer['year'])
     car_details_asnwer['engine']=int(car_details_asnwer['engine'])

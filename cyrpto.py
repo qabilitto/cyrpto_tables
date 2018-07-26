@@ -29,7 +29,7 @@ while True:
             page+=1
         else:
             page-=1
-    if a['opt']=='sorting':
+    elif a['opt']=='sorting':
         command=[
             inquirer.List('column',message='Select column',
             choices=headers)
@@ -39,18 +39,24 @@ while True:
     
     else:
         command=[
-            inquirer.List('column',message='Select column',
-            choices=headers)
+            inquirer.Text('val',message='Type value')
         ]
         answer=inquirer.prompt(command)
-        val=input('type value: ')
-        for i in info['data']:
-            for j in i.values():
-                if type(j) is str and val in j:
-                    data.append(i.values())
+        data=[list(row.values()) for row in info['data'] for i in list(row.values()) if type(i) is str and answer['val'] in i]
         tab=terminaltables.ascii_table.AsciiTable(data)
+        tab.inner_row_border=True
         print(tab.table)
-        break
+        command=[
+            inquirer.List('c',message='Do you want to continue?',choices=['yes','no'])
+        ]
+        
+        a=inquirer.prompt(command)
+        if a['c']=='yes':
+            continue
+        else:
+            break
+
+       
 
 
 
